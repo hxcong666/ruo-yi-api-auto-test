@@ -1,0 +1,53 @@
+# 场景1：查询默认存在的“系统管理”菜单详情
+get_info_cases:
+  - menuId: 1
+    expected_code: 200
+
+# 场景2：查询超级管理员角色(ID:1)或者普通角色(ID:2)的菜单树
+get_role_menu_cases:
+  - roleId: 2
+    expected_code: 200
+
+# 场景3：正常新增一个挂在顶层(parentId:0)的自动化测试菜单
+add_menu_cases:
+  - parentId: 0
+    menuName: "new${TIMESTAMP}"
+    orderNum: 1
+    path: "auto_test_menu_${TIMESTAMP}"
+    component: "auto_test/index"
+    menuType: "C"    # C代表菜单, M代表目录, F代表按钮
+    status: "0"
+    visible: "0"
+    isFrame: 1
+    isCache: 0
+    expected_code: 200
+
+# 场景：正常修改菜单名称
+update_menu_cases:
+  - menuId: "DYNAMIC"
+    parentId: 0
+    menuName: "修改菜单_${TIMESTAMP}"
+    orderNum: 1
+    path: "auto_test_${TIMESTAMP}"
+    menuType: "C"
+    expected_code: 200
+
+# 场景：修改菜单排序值
+update_sort_cases:
+  - menuIds: 1000
+    parentId: 0
+    menuName: "用户查询_${TIMESTAMP}"
+    path: "auto_test"
+    menuType: "C"
+    orderNums: 6
+    expected_code: 200
+
+#场景:删除菜单
+delete_menu_cases:
+  # 场景1：正常删除一个没有下级子菜单的空菜单
+  - menuId: "DYNAMIC"
+    expected_code: 200
+
+  # 场景2：异常删除测试 - 试图删除带有子菜单的“系统管理”(ID:1)
+  - menuId: 1
+    expected_code: 601

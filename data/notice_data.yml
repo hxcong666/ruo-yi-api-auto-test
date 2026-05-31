@@ -1,0 +1,37 @@
+
+#场景1: 获取所有公告
+get_info_cases:
+  - noticeId: 1
+    expected_code: 200
+
+#场景2: 新增公告
+add_notice_cases:
+  - noticeTitle: "【自动化测试】系统升级通知_${TIMESTAMP}"
+    noticeType: "1"            # 1通知 2公告
+    noticeContent: "系统将于今晚进行自动化测试引擎升级，请知悉。"
+    status: "0"                # 0正常 1关闭
+    expected_code: 200
+
+#场景3: 修改公告
+update_notice_cases:
+  - noticeId: "DYNAMIC"
+    noticeTitle: "【自动化测试】系统升级通知(已修改)_${TIMESTAMP}"
+    noticeType: "1"
+    noticeContent: "<p>更新了通知内容</p>"
+    status: "0"
+    expected_code: 200
+
+#场景4: 删除公告
+delete_notice_cases:
+  - noticeId: "DYNAMIC"
+    expected_code: 200
+
+#场景5: 标记已读
+mark_read_cases:
+  - noticeId: "DYNAMIC"               # 单个标记已读的公告ID
+    expected_code: 200
+
+#场景6: 批量标记已读
+mark_read_all_cases:
+  - ids: "1,2,3"
+    expected_code: 200

@@ -1,0 +1,61 @@
+
+# 场景1：新增用户
+add_user_cases:
+  # 正常新增
+  - userName: "ry_${TIMESTAMP}"
+    nickName: "小玉_${TIMESTAMP}"
+    password: "password123"
+    phonenumber: "1${TIMESTAMP}"
+    sex: "1"
+    expected_code: 200
+
+
+  # 用户名为空（异常测试）
+  - userName: ""
+    nickName: "123"
+    password: "password123"
+    phonenumber: "13800000003"
+    sex: "1"
+    expected_code: 500
+
+# 场景2：更新用户
+update_user_cases:
+  - userId: "DYNAMIC"
+    userName: "ty_upd_${TIMESTAMP}"
+    nickName: "小玉修改版"
+    phonenumber: "1${TIMESTAMP}"
+    sex: "1"
+    expected_code: 200
+
+  # 更新用户手机号冲突
+  - userId: 102
+    userName: "framework_user"
+    nickName: "测试手机号冲突"
+    phonenumber: "15888888888"  # 去数据库找一个【别人】的手机号
+    sex: "1"
+    expected_code: 500
+
+  #昵称为空
+  - userId: 102
+    userName: "昵称为空"
+    nickName: ""
+    phonenumber: "2${TIMESTAMP}"
+    sex: "0"
+    expected_code: 200 #实际测试中发现昵称为空也能修改成功
+
+  #少参(少userId)
+  - userName: "啦啦啦啦啦"
+    nickName: "没有ID的幽灵"
+    phonenumber: "13811112222"
+    sex: "0"
+    expected_code: 500
+
+#场景3:删除用户
+delete_user_cases:
+  - userId: "DYNAMIC"
+    expected_code: 200
+
+#场景4:获取用户详情
+get_user_info_cases:
+    - userId: 1
+      expected_code: 200

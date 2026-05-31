@@ -1,0 +1,33 @@
+#场景1:获取岗位信息
+get_post_info_cases:
+  - postId: 1
+    expected_code: 200
+
+#场景2:新增岗位
+add_post_cases:
+  # 正常新增
+  - postCode: "test_engineer_${TIMESTAMP}"
+    postName: "测开_${TIMESTAMP}"
+    postSort: 1
+    status: "0"
+    expected_code: 200
+
+#场景3:修改岗位
+update_post_cases:
+  # 场景：正常修改
+  - postId: "DYNAMIC"
+    postCode: "test_engineer_${TIMESTAMP}"
+    postName: "高级测试开发专家_${TIMESTAMP}"
+    postSort: 1
+    status: "0"
+    expected_code: 200
+
+#场景4:删除岗位
+delete_post_cases:
+  # 正常删除
+  - postId: "DYNAMIC"
+    expected_code: 200
+
+  # 场景2：异常删除测试 - 试图删除被用户绑定/禁止删除的核心岗位 (比如 CEO, ID:1)
+  - postId: 1
+    expected_code: 500         # 预期系统拦截报错（或者 601，跑完看报错调整）

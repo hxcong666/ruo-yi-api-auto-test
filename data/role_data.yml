@@ -1,0 +1,47 @@
+
+# 场景1：新增角色的各种测试数据
+add_role_cases:
+  # 正常新增
+  - roleName: "测试总监_${TIMESTAMP}"
+    roleKey: "test_director_${TIMESTAMP}"
+    roleSort: 2
+    status: "0"
+    menuIds: []
+    expected_code: 200
+
+  # 角色名为空（异常测试）
+  - roleName: ""
+    roleKey: "test_empty"
+    roleSort: 2
+    status: "0"
+    menuIds: []
+    expected_code: 500
+
+# 场景2：获取角色列表的数据
+get_role_list_cases:
+  - pageNum: 1
+    pageSize: 10
+    expected_code: 200
+  - pageNum: 2
+    pageSize: 50
+    expected_code: 200
+
+#场景3:获取角色详细信息
+get_role_info_cases:
+  - roleId: 1
+    expected_code: 200
+
+#场景4:更新角色信息
+update_role_cases:
+  - roleId: "DYNAMIC"                 # 必须指定要修改的 ID
+    roleName: "测试总监_${TIMESTAMP}"
+    roleKey: "test_director_${TIMESTAMP}"   # 保持原样或者修改
+    roleSort: 2                  # 排序号
+    status: "0"                  # 状态（0正常）
+    menuIds: [ ]
+    expected_code: 200
+
+#场景5:删除角色
+delete_role_cases:
+  - roleId: "DYNAMIC"
+    expected_code: 200

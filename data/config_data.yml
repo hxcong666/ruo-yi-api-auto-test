@@ -1,0 +1,37 @@
+#场景1: 查询参数列表
+get_info_cases:
+  - configId: 1
+    expected_code: 200
+
+#场景2: 查询参数详情
+get_config_key_cases:
+  - configKey: "sys.index.skinName"
+    expected_code: 200
+
+#场景3: 新增参数
+add_config_cases:
+  - configName: "自动化专属开关_${TIMESTAMP}"
+    configKey: "sys.test.autoKey_${TIMESTAMP}"  # 保证唯一性的测试键名
+    configValue: "true"
+    configType: "N"                # Y代表系统内置, N代表非内置
+    remark: "自动化测试创建的参数"
+    expected_code: 200
+
+#场景4: 修改参数
+update_config_cases:
+  - configId: "DYNAMIC"
+    configName: "自动化专属开关(已修改)_${TIMESTAMP}"
+    configKey: "sys.test.autoKey_${TIMESTAMP}"  # 键名保持一致
+    configValue: "false"
+    configType: "N"
+    expected_code: 200
+
+#场景5: 删除参数
+delete_config_cases:
+  # 1：正常删除
+  - configId: "DYNAMIC"
+    expected_code: 200
+
+  # 2：异常反向测试 - 试图删除系统内置核心参数
+  - configId: 1
+    expected_code: 500

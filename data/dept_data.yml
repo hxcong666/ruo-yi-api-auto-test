@@ -1,0 +1,27 @@
+
+#场景1:增加部门
+add_dept_cases:
+  - parentId: 100
+    deptName: "自动化测试研发部_${TIMESTAMP}"
+    orderNum: 1
+    expected_code: 200
+
+#场景2:更新部门
+update_dept_cases:
+  # 正常修改部门名称和负责人
+  - deptId: 201
+    parentId: 100
+    deptName: "自动化研发中心_${TIMESTAMP}"
+    leader: "框架战神1"
+    orderNum: 1
+    expected_code: 200
+
+#场景3:删除部门
+delete_dept_cases:
+  # 正常删除没有子部门、没有人员的空部门
+  - deptId: "DYNAMIC"
+    expected_code: 200
+
+  # 场景2：异常删除测试 - 试图删除顶级总部 (ID:100)
+  - deptId: 100
+    expected_code: 601           # 预期系统拦截，提示“存在下级部门，不允许删除”

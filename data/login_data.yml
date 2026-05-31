@@ -1,0 +1,41 @@
+
+#场景1:登录接口
+login_cases:
+  # 1：正常登录（正向）
+  - username: "admin"
+    password: "admin123"
+    expected_code: 200
+
+  # 2：密码错误（反向）
+  - username: "admin"
+    password: "wrong_password"
+    expected_code: 500
+
+  # 3：账号不存在（反向）
+  - username: "ghost_user"
+    password: "admin123"
+    expected_code: 500
+
+#场景2:注册接口信息
+register_cases:
+  # 1：正常注册新用户
+  - username: "new_${TIMESTAMP}"
+    password: "auto123456"
+    confirmPassword: "auto123456"
+    expected_code: 200
+
+  # 2：反向测试（两次密码不一致/或账号已存在）
+  - username: "admin"
+    password: "auto123456"
+    confirmPassword: "auto123456"
+    expected_code: 500
+
+#场景3:解锁屏幕接口信息
+unlock_screen_cases:
+  # 1：正确密码解锁
+  - password: "admin123"
+    expected_code: 200
+
+  # 2：反向测试（错误密码解锁）
+  - password: "wrong_password"
+    expected_code: 500
